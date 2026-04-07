@@ -1,0 +1,171 @@
+# ===============================
+# 1. Analizar notas
+# ===============================
+def analizar_notas(notas):
+    promedio = sum(notas) / len(notas)
+    mayor = max(notas)
+    menor = min(notas)
+    return promedio, mayor, menor
+
+notas = [3.5, 4.0, 2.8, 5.0]
+print("1:", analizar_notas(notas))
+
+
+# ===============================
+# 2. Aprobados
+# ===============================
+def aprobados(estudiantes):
+    lista_aprobados = []
+    for nombre, nota in estudiantes:
+        if nota >= 3.0:
+            lista_aprobados.append(nombre)
+    return lista_aprobados
+
+estudiantes = [("Ana", 3.5), ("Luis", 2.9), ("Carlos", 4.2)]
+print("2:", aprobados(estudiantes))
+
+
+# ===============================
+# 3. Agenda
+# ===============================
+def agregar_contacto(agenda, nombre, numero):
+    agenda[nombre] = numero
+
+def buscar_contacto(agenda, nombre):
+    return agenda.get(nombre, "No encontrado")
+
+def eliminar_contacto(agenda, nombre):
+    agenda.pop(nombre, None)
+
+agenda = {}
+agregar_contacto(agenda, "Ana", "123")
+print("3:", buscar_contacto(agenda, "Ana"))
+eliminar_contacto(agenda, "Ana")
+
+
+# ===============================
+# 4. Inventario
+# ===============================
+def valor_inventario(inventario):
+    total = 0
+    for producto in inventario.values():
+        total += producto["precio"] * producto["cantidad"]
+    return total
+
+inventario = {
+    "lapiz": {"precio": 1000, "cantidad": 10},
+    "cuaderno": {"precio": 5000, "cantidad": 5}
+}
+print("4:", valor_inventario(inventario))
+
+
+# ===============================
+# 5. Contar palabras
+# ===============================
+def contar_palabras(lista):
+    frecuencia = {}
+    for palabra in lista:
+        frecuencia[palabra] = frecuencia.get(palabra, 0) + 1
+    return frecuencia
+
+palabras = ["hola", "adios", "hola"]
+print("5:", contar_palabras(palabras))
+
+
+# ===============================
+# 6. Temperaturas
+# ===============================
+def analizar_temperaturas(datos):
+    todas = []
+    for temps in datos.values():
+        todas.extend(temps)
+    return max(todas), min(todas)
+
+temps = {
+    "Bogotá": [18, 20, 17],
+    "Cali": [30, 32, 31]
+}
+print("6:", analizar_temperaturas(temps))
+
+
+# ===============================
+# 7. Convertir notas
+# ===============================
+def convertir_nota(nota):
+    rangos = (
+        (4.5, "A"),
+        (4.0, "B"),
+        (3.0, "C"),
+        (2.0, "D"),
+        (0, "F")
+    )
+    
+    for limite, letra in rangos:
+        if nota >= limite:
+            return letra
+
+def reporte(estudiantes):
+    resultado = {}
+    for nombre, nota in estudiantes:
+        resultado[nombre] = convertir_nota(nota)
+    return resultado
+
+datos = [("Ana", 4.7), ("Luis", 3.2)]
+print("7:", reporte(datos))
+
+
+# ===============================
+# 8. Carrito de compras
+# ===============================
+def agregar_producto(carrito, nombre, precio, cantidad):
+    carrito[nombre] = {"precio": precio, "cantidad": cantidad}
+
+def total_pagar(carrito):
+    total = 0
+    for p in carrito.values():
+        total += p["precio"] * p["cantidad"]
+    return total
+
+def aplicar_descuento(total, descuento):
+    return total * (1 - descuento)
+
+carrito = {}
+agregar_producto(carrito, "camisa", 20000, 2)
+total = total_pagar(carrito)
+print("8:", aplicar_descuento(total, 0.1))
+
+
+# ===============================
+# 9. Agrupar productos
+# ===============================
+def agrupar(productos):
+    categorias = {}
+    for producto, categoria in productos:
+        categorias.setdefault(categoria, []).append(producto)
+    return categorias
+
+productos = [("manzana", "fruta"), ("zanahoria", "verdura")]
+print("9:", agrupar(productos))
+
+
+# ===============================
+# 10. Votaciones
+# ===============================
+def contar_votos(votos, candidatos):
+    conteo = {}
+    invalidos = 0
+
+    for voto in votos:
+        if voto in candidatos:
+            conteo[voto] = conteo.get(voto, 0) + 1
+        else:
+            invalidos += 1
+
+    ganador = max(conteo, key=conteo.get)
+    total_validos = sum(conteo.values())
+    porcentaje = (conteo[ganador] / total_validos) * 100
+
+    return ganador, porcentaje, invalidos
+
+votos = ["A", "B", "A", "C", "X"]
+print("10:", contar_votos(votos, ["A", "B", "C"]))
